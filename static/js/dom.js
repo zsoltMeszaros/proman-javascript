@@ -1,20 +1,20 @@
 // It uses data_handler.js to visualize elements
 let dom = {
-    loadBoards: function() {
+    loadBoards: function () {
         // retrieves boards and makes showBoards called
     },
-    showBoards: function(boards) {
+    showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
     },
-    loadCards: function(boardId) {
+    loadCards: function (boardId) {
         // retrieves cards and makes showCards called
     },
-    showCards: function(cards) {
+    showCards: function (cards) {
         // shows the cards of a board
         // it adds necessary event listeners also
     },
-    appendToElement: function(elementToExtend, textToAppend, prepend = false) {
+    appendToElement: function (elementToExtend, textToAppend, prepend = false) {
         // function to append new DOM elements (represented by a string) to an existing DOM element
         let fakeDiv = document.createElement('div');
         fakeDiv.innerHTML = textToAppend.trim();
@@ -30,4 +30,4 @@ let dom = {
         return elementToExtend.lastChild;
     }
     // here comes more features
-}
+};
