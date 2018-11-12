@@ -4,21 +4,33 @@
 // (watch out: when you would like to use a property/function of an object from the
 // object itself then you must use the 'this' keyword before. For example: 'this._data' below)
 let dataHandler = {
-    keyInLocalStorage: 'proman-data', // the string that you use as a key in localStorage to save your application data
     _data: {}, // it contains the boards and their cards and statuses. It is not called from outside.
-    _loadData: function () {
+    _api_get: function (url, callback) {
         // it is not called from outside
-        // loads data from local storage, parses it and put into this._data property
+        // loads data from API, parses it and calls the callback with it
+
+        fetch(url, {
+            method: 'GET',
+            credentials: 'same-origin'
+        })
+        .then(response => response.json())  // parse the response as JSON
+        .then(json_response => callback(json_response));  // Call the `callback` with the returned object
     },
-    _saveData: function () {
+    _api_post: function (url, data, callback) {
         // it is not called from outside
-        // saves the data from this._data to local storage
+        // sends the data to the API, and calls callback function
     },
     init: function () {
-        this._loadData();
     },
     getBoards: function (callback) {
         // the boards are retrieved and then the callback function is called with the boards
+
+        // Here we use an arrow function to keep the value of 'this' on dataHandler.
+        //    if we would use function(){...} here, the value of 'this' would change.
+        this._api_get('/get-boards', (response) => {
+            this._data = response;
+            callback(response);
+        });
     },
     getBoard: function (boardId, callback) {
         // the board is retrieved and then the callback function is called with the board
