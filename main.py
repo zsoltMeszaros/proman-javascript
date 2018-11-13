@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from util import json_response
 
 import data_handler
@@ -35,6 +35,10 @@ def get_cards_for_board(board_id: int):
 
 def main():
     app.run(debug=True)
+
+    # Serving the favicon
+    with app.app_context():
+        app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon/favicon.ico'))
 
 
 if __name__ == '__main__':
