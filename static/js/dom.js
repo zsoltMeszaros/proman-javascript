@@ -1,5 +1,7 @@
 // It uses data_handler.js to visualize elements
-let dom = {
+import { dataHandler } from "./data_handler.js";
+
+export let dom = {
     _appendToElement: function (elementToExtend, textToAppend, prepend = false) {
         // function to append new DOM elements (represented by a string) to an existing DOM element
         let fakeDiv = document.createElement('div');
@@ -14,6 +16,9 @@ let dom = {
         }
 
         return elementToExtend.lastChild;
+    },
+    init: function () {
+        // This function should run once, when the page is loaded.
     },
     loadBoards: function () {
         // retrieves boards and makes showBoards called

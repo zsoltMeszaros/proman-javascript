@@ -3,7 +3,7 @@
 
 // (watch out: when you would like to use a property/function of an object from the
 // object itself then you must use the 'this' keyword before. For example: 'this._data' below)
-let dataHandler = {
+export let dataHandler = {
     _data: {}, // it contains the boards and their cards and statuses. It is not called from outside.
     _api_get: function (url, callback) {
         // it is not called from outside
