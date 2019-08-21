@@ -27,15 +27,25 @@ export let dom = {
         dataHandler.getBoards(function(boards){
             dom.clearBoards();
             dom.showBoards(boards);
-        });
+        }
+        );
+
     },
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
 
+
         let boardList = '';
 
         for(let board of boards){
+
+        console.log(board.id)
+
+        let statuses = dataHandler.getStatuses();
+
+        console.log(statuses)
+
             boardList += `
         <ul class="board-container">
                 
@@ -52,6 +62,7 @@ export let dom = {
                         <div class="board-column-title">New</div>
                             <div class="board-column-content">
                             <div class="card">
+                             
                             </div>
                             </div>
                         </div>

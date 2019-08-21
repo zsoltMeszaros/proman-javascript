@@ -11,9 +11,9 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    boards = data_handler.get_boards()
 
-    return render_template('index.html', boards=boards)
+
+    return render_template('index.html')
 
 
 @app.route("/get-boards")
@@ -32,11 +32,25 @@ def get_statuses():
     return data_handler.get_card_statuses()
 
 
-@app.route("/get-card/<int:card_id")
+@app.route("/get-card-status/<int:card_id>")
 @json_response
-def get_card_by_id(card_id:int):
+def get_card_status(card_id: int):
+
+    return data_handler.get_card_status_by_id(card_id)
+
+
+@app.route("/get-card/<int:card_id>")
+@json_response
+def get_card_by_id(card_id: int):
 
     return data_handler.get_card_by_id(card_id)
+
+
+@app.route("/get-board/<int:board_id>")
+@json_response
+def get_board_by_id(board_id: int):
+
+    return data_handler.get_board_by_id(board_id)
 
 
 @app.route("/get-cards/<int:board_id>")
