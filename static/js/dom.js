@@ -40,7 +40,9 @@ export let dom = {
 
         for(let board of boards){
 
-        console.log(board)
+        let cards = dataHandler.getCardsByBoardId(1)
+
+        console.log(cards)
 
             boardList += `
         <ul class="board-container">

@@ -44,7 +44,7 @@ def get_cards_for_board(cursor, given_id):
 
     cursor.execute('''
                     SELECT * FROM cards
-                    WHERE board_id == %(given_id)s
+                    WHERE board_id = %(given_id)s
                     ''', {"given_id": given_id}
                    )
 
@@ -58,7 +58,7 @@ def get_card_by_id(cursor, given_id):
 
     cursor.execute('''
                     SELECT * FROM cards
-                    WHERE id == %(given_id)s
+                    WHERE id = %(given_id)s
                     ''', {"id": given_id}
                    )
 
@@ -72,7 +72,7 @@ def get_board_by_id(cursor, given_id):
 
     cursor.execute('''
                     SELECT * FROM boards
-                    WHERE id == %(given_id)s
+                    WHERE id = %(given_id)s
                     ''', {"id": given_id}
                    )
 
