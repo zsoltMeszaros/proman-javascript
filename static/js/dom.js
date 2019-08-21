@@ -40,7 +40,9 @@ export let dom = {
 
         for(let board of boards){
 
-        let cards = dataHandler.getCardsByBoardId(1)
+        let cards = dataHandler.getCardsByBoardId(1,function (data) {
+            console.log(data)
+        })
 
         console.log(cards)
 
