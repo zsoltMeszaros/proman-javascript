@@ -22,7 +22,10 @@ export let dom = {
     },
     loadBoards: function () {
         // retrieves boards and makes showBoards called
+
+
         dataHandler.getBoards(function(boards){
+            dom.clearBoards();
             dom.showBoards(boards);
         });
     },
@@ -54,4 +57,8 @@ export let dom = {
         // it adds necessary event listeners also
     },
     // here comes more features
+
+    clearBoards: function(){
+        document.getElementById("boards").textContent="";
+    }
 };
