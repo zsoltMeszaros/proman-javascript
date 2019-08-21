@@ -41,7 +41,7 @@ export let dom = {
                 
             <section class="board">
 
-                <div class="board-header"><span class="board-title">Board 1</span>
+                <div class="board-header"><span class="board-title"> ${board.board_title} </span>
 
                     <button class="board-add">Add Card</button>
 
