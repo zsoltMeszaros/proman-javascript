@@ -40,11 +40,7 @@ export let dom = {
 
         for(let board of boards){
 
-        console.log(board.id)
-
-        let statuses = dataHandler.getStatuses();
-
-        console.log(statuses)
+        console.log(board)
 
             boardList += `
         <ul class="board-container">
