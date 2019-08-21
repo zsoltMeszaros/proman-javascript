@@ -1,12 +1,32 @@
 import database_common
 
 @database_common.connection_handler
-def get_card_status(given_id):
+def get_card_statuses(cursor):
+
+    cursor.execute('''
+                    SELECT status FROM cards
+                    ''')
+
+    statuses = cursor.fetchall()
+
+    return statuses
+
+
+@database_common.connection_handler
+def get_card_status(cursor, given_id):
     """
     Find the first status matching the given id
     """
 
-    return
+    cursor.execute('''
+                        SELECT status FROM cards
+                        WHERE id = %(given_id)s
+                        ''', {"id": given_id}
+                   )
+
+    status = cursor.fetchone()
+
+    return status
 
 
 @database_common.connection_handler
@@ -20,6 +40,34 @@ def get_boards(cursor):
 
 
 @database_common.connection_handler
-def get_cards_for_board():
+def get_cards_for_board(cursor, given_id):
 
-    return
+    cursor.execute('''
+                    SELECT * FROM cards
+                    WHERE board_id == %(given_id)s
+                    ''', {"id": given_id}
+                   )
+
+    cards = cursor.fetchall()
+
+    return cards
+
+
+@database_common.connection_handler
+def get_card_by_id(cursor, given_id):
+
+    cursor.execute('''
+                    SELECT * FROM cards
+                    WHERE id == %(given_id)s
+                    ''', {"id": given_id}
+                   )
+
+    card = cursor.fetchone()
+
+    return card
+
+
+@database_common.connection_handler
+def create_board(cursor, title):
+
+    pass
