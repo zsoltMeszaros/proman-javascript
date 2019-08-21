@@ -38,13 +38,17 @@ export let dom = {
 
         let boardList = '';
 
+
         for(let board of boards){
 
-        let cards = dataHandler.getCardsByBoardId(1,function (data) {
-            console.log(data)
-        })
+            let alma = [];
 
-        console.log(cards)
+            dataHandler.getCardsByBoardId(board.id, function (data) {
+                alma.push(data)
+            });
+
+            console.log(alma);
+
 
             boardList += `
         <ul class="board-container">

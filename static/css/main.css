@@ -1,14 +1,15 @@
 :root{
     --border-radius: 3px;
-    --status-1: #590000;
-    --status-2: #594300;
-    --status-3: #525900;
-    --status-4: #085900;
+    --status-1: #097b00;
+    --status-2: #07b500;
+    --status-3: #27da11;
+    --status-4: #dfe532;
 }
 
 body{
     min-width: 620px;
-    background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
+    background: #ddd url(https://d39l2hkdp2esp1.cloudfront.net/img/photo/138843/138843_00_2x.jpg?20180117031737) no-repeat center center fixed;;
+    background-size: cover;
     font-family: sans-serif;
 }
 
@@ -21,6 +22,10 @@ h1{
     font-size: 4em;
     letter-spacing: 5px;
     transform: scale(1.2, 1);
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 920px;
 }
 
 button{
@@ -40,13 +45,13 @@ button{
 section.board{
     margin: 20px;
     border: aliceblue;
-    background: #ffffff90;
+    background: #ffffffdd;
     border-radius: 3px;
 }
 
 .board-header{
     height: 50px;
-    background: #fff;
+    background: #c7e298;
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
