@@ -37,17 +37,55 @@ export let dom = {
 
         for(let board of boards){
             boardList += `
-                <li>${board.title}</li>
+        <ul class="board-container">
+                
+            <section class="board">
+
+                <div class="board-header"><span class="board-title">Board 1</span>
+
+                    <button class="board-add">Add Card</button>
+
+                    <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="board-columns">
+                    <div class="board-column">
+                        <div class="board-column-title">New</div>
+                            <div class="board-column-content">
+                            <div class="card">
+                            </div>
+                            </div>
+                        </div>
+                        <div class="board-column">
+                            <div class="board-column-title">In Progress</div>
+                            <div class="board-column-content">
+                                <div class="card">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-column">
+                            <div class="board-column-title">Testing</div>
+                            <div class="board-column-content">
+                                <div class="card">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="board-column">
+                            <div class="board-column-title">Done</div>
+                            <div class="board-column-content">
+                                <div class="card">
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </section>
+        </ul>
             `;
         }
 
-        const outerHtml = `
-            <ul class="board-container">
-                ${boardList}
-            </ul>
-        `;
 
-        this._appendToElement(document.querySelector('#boards'), outerHtml);
+        this._appendToElement(document.getElementById("board"), boardList);
+
+
     },
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
@@ -59,6 +97,6 @@ export let dom = {
     // here comes more features
 
     clearBoards: function(){
-        document.getElementById("boards").textContent="";
+        document.getElementById("board").textContent="";
     }
 };
