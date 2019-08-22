@@ -20,7 +20,7 @@ def create_board():
 
     data_handler.create_board()
 
-    return data_handler.create_board()
+    return get_boards()
 
 
 @app.route("/get-boards")

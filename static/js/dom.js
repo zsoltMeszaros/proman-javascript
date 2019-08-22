@@ -19,6 +19,7 @@ export let dom = {
     },
     init: function () {
         // This function should run once, when the page is loaded.
+
     },
 
 
@@ -29,6 +30,7 @@ export let dom = {
         dataHandler.getBoards(function(boards){
             dom.clearBoards();
             dom.showBoards(boards);
+
         }
         );
 
@@ -36,6 +38,17 @@ export let dom = {
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
+
+    /*
+    ------------------------- RECURSIVE --- USE WITH CAUTION -----------------------------------------------------
+
+        let getbórdssz = document.getElementById("create-board")
+
+        getbórdssz.addEventListener("click",dataHandler.createNewBoard(function(boards){
+            dom.showBoards(boards);
+            console.log("yeah");
+        }))
+     */
 
 
         let boardList = '';
