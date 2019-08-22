@@ -51,10 +51,15 @@ export let dom = {
             dataHandler.getCardsByBoardId(board.id, function (data) {
 
                 let cards = "";
+                console.log(data)
 
                 data.forEach(card => {
-                    let emptyCard = `<div class="card" > ${card.title} </div>`;
-                    cards += emptyCard;
+                    console.log(card.board_id)
+                    if (board.id === card.board_id && card.status === "0") {
+                        let emptyCard = `<div class="card" > ${card.title} </div>`;
+                        cards += emptyCard;
+
+                    }
                 });
 
                 let element = document.createElement('div');
