@@ -30,7 +30,7 @@ export let dom = {
         dataHandler.getBoards(function(boards){
             dom.clearBoards();
             dom.showBoards(boards);
-
+            dom.toggleButtons();
         }
         );
 
@@ -62,9 +62,9 @@ export let dom = {
             <section class="board">
                 <div class="board-header"><span class="board-title"> ${board.board_title} </span>
                     <button class="board-add">Add Card</button>
-                    <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
+                    <button class="board-toggle" data-number="${board.id}"><i class="fas fa-chevron-down"></i></button>
                 </div>
-                <div class="board-columns">
+                <div class="board-columns" data-number="${board.id}">
                     <div class="board-column">
                         <div class="board-column-title">New</div>
                         
@@ -130,6 +130,24 @@ export let dom = {
                 }
         },
 
+    toggleButtons: function() {
+    let boards = document.querySelectorAll('.board-toggle');
+    console.log(boards);
+    for (let button of boards) {
+        button.addEventListener('click', function () {
+            let table = document.querySelectorAll(".board-columns");
+            for (let right_button of table) {
+                if (right_button.dataset.number == button.dataset.number) {
+                    if (right_button.style.display === "none") {
+                        right_button.style.display = null;
+                    } else {
+                        right_button.style.display = "none";
+                    }
+                }
+            }
+        }
+    )}
+    },
 
     clearBoards: function(){
         document.getElementById("board").textContent="";
