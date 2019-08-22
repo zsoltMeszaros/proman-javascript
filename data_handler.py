@@ -82,6 +82,28 @@ def get_board_by_id(cursor, given_id):
 
 
 @database_common.connection_handler
-def create_board(cursor, title):
+def create_board(cursor):
 
-    pass
+    cursor.execute('''
+                    SELECT MAX(id) from boards
+                    ''')
+
+    seq = cursor.fetchone()
+    seq = seq['max'] + 1
+
+    cursor.execute('''
+                    INSERT INTO boards (board_title) VALUES ('Board %(seq)s')
+                    ''', {'seq': seq})
+
+    return
+
+
+@database_common.connection_handler
+def create_card(cursor, title):
+
+    cursor.execute('''
+                    INSERT INTO boards (board_title) VALUES (%(title)s)
+                    ''',{'title': title})
+
+    return
+

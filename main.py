@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, redirect
 from util import json_response
 
 import data_handler
@@ -12,8 +12,15 @@ def index():
     This is a one-pager which shows all the boards and cards
     """
 
-
     return render_template('index.html')
+
+
+@app.route('/create-board/')
+def create_board():
+
+    data_handler.create_board()
+
+    return data_handler.create_board()
 
 
 @app.route("/get-boards")
