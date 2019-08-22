@@ -50,25 +50,19 @@ export let dom = {
 
             dataHandler.getCardsByBoardId(board.id, function (data) {
 
-                let iLoveBarkacsolas = document.querySelectorAll("#new-column")
+                let cards = "";
 
-                iLoveBarkacsolas.innerHTML = data;
-
-                console.log(iLoveBarkacsolas);
+                data.forEach(card => {
+                    let emptyCard = `<div class="card" > ${card.title} </div>`;
+                    cards += emptyCard;
+                });
 
                 let element = document.createElement('div');
                 element.setAttribute('class','card');
-                element.innerHTML = iLoveBarkacsolas;
+                element.innerHTML = cards;
 
-                document.querySelector('.column-new').innerHTML = element;
+                document.querySelector('.column-new').appendChild(element);
 
-                data.forEach(card => {
-                    let new2 = "";
-                    let emptyCard = `<div class="card" > ${card.title} </div>`;
-                    new2 += emptyCard;
-                    let element = document.createElement('div')
-                    element.innerHTML = new2;
-                })
             });
 
         boardList += `
