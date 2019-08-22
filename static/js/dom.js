@@ -41,18 +41,6 @@ export let dom = {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
 
-    /*
-    ------------------------- RECURSIVE --- USE WITH CAUTION -----------------------------------------------------
-
-        let getbórdssz = document.getElementById("create-board")
-
-        getbórdssz.addEventListener("click",dataHandler.createNewBoard(function(boards){
-            dom.showBoards(boards);
-            console.log("yeah");
-        }))
-     */
-
-
         let boardList = '';
 
 
@@ -60,36 +48,27 @@ export let dom = {
 
         boardList += `
         <ul class="board-container">
-                
             <section class="board">
-                <div class="board-header"><span class="board-title"> ${board.board_title} </span>
+                <div class="board-header"><span class="board-title">${board.board_title}</span>
                     <button class="board-add">Add Card</button>
                     <button class="board-toggle" data-number="${board.id}"><i class="fas fa-chevron-down"></i></button>
                 </div>
                 <div class="board-columns" data-number="${board.id}">
                     <div class="board-column">
                         <div class="board-column-title">New</div>
-                        
-                            <div class="board-column-content column-0${board.id}" > </div>
-                        </div>
-                        <div class="board-column">
-                            <div class="board-column-title">In Progress</div>
-                            <div class="board-column-content column-1${board.id} ">
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="board-column">
-                            <div class="board-column-title">Testing</div>
-                            <div class="board-column-content column-2${board.id} ">
-                            </div>
-                        </div>
-                        <div class="board-column">
-                            <div class="board-column-title">Done</div>
-                            <div class="board-column-content column-3${board.id} ">
-                                
-                                </div>
-                            </div>
+                        <div class="board-column-content column-0${board.id}" ></div>
+                    </div>
+                    <div class="board-column">
+                        <div class="board-column-title">In Progress</div>
+                        <div class="board-column-content column-1${board.id} "></div>
+                    </div>
+                    <div class="board-column">
+                        <div class="board-column-title">Testing</div>
+                        <div class="board-column-content column-2${board.id} "></div>
+                    </div>
+                    <div class="board-column">
+                        <div class="board-column-title">Done</div>
+                        <div class="board-column-content column-3${board.id} "></div>
                     </div>
                 </div>
             </section>
