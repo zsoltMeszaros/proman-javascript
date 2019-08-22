@@ -43,8 +43,6 @@ export let dom = {
 
         for(let board of boards){
 
-        dom.loadCards(board.id);
-
         boardList += `
         <ul class="board-container">
                 
@@ -82,7 +80,7 @@ export let dom = {
             </section>
         </ul>`;
 
-
+        dom.loadCards(board.id);
         }
         this._appendToElement(document.getElementById("board"), boardList);
 
@@ -103,8 +101,6 @@ export let dom = {
         // it adds necessary event listeners also
 
                 let htmlCardsString = "";
-                console.log(cards);
-                //console.log(card.board_id)
 
                 for (let j=0; j < 4; j++){
                     for(let card of cards) {
