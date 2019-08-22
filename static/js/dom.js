@@ -140,6 +140,8 @@ export let dom = {
                 dataHandler.createNewBoard(function(data){
                     dom.clearBoards();
                     dom.showBoards(data);
+                    dom.toggleButtons();
+                    dom.newBoardCreate(boards)
                 })
             }
         })
