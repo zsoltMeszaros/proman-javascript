@@ -41,15 +41,27 @@ export let dom = {
 
         for(let board of boards){
 
+            let new_= "";
+            let inProgress = "";
+            let test = "";
+            let done = "";
+
+
 
             dataHandler.getCardsByBoardId(board.id, function (data) {
-                let card_data = data
-                console.log(card_data)
+                data.forEach(card => {
+                    let new2 = "";
+                    let emptyCard = `<div class="card" > ${card.title} </div>`;
+                    new2 += emptyCard;
+                    let element = document.createElement('div')
+                    element.innerHTML = new2;
+                    console.log(new2);
+                    // document.getElementById('new').appendChild(new2);
+                    document.getElementsByClassName("column-testing").appendChild(element);
+                })
             });
 
-
-
-            boardList += `
+        boardList += `
         <ul class="board-container">
                 
             <section class="board">
@@ -63,37 +75,36 @@ export let dom = {
                 <div class="board-columns">
                     <div class="board-column">
                         <div class="board-column-title">New</div>
-                            <div class="board-column-content">
-                            <div class="card">
-                             
-                            </div>
-                            </div>
+                        
+                            <div class="board-column-content column-new" >${new_}</div>
+
                         </div>
                         <div class="board-column">
                             <div class="board-column-title">In Progress</div>
-                            <div class="board-column-content">
+                            <div class="board-column-content column-in-progress">
                                 <div class="card">
                                 </div>
                             </div>
                         </div>
                         <div class="board-column">
                             <div class="board-column-title">Testing</div>
-                            <div class="board-column-content">
+                            <div class="board-column-content column-testing">
                                 <div class="card">
                                 </div>
                             </div>
                         </div>
                         <div class="board-column">
                             <div class="board-column-title">Done</div>
-                            <div class="board-column-content">
+                            <div class="board-column-content column-done">
                                 <div class="card">
                                 </div>
                             </div>
                     </div>
                 </div>
             </section>
-        </ul>
-            `;
+        </ul>`;
+
+
         }
 
 
