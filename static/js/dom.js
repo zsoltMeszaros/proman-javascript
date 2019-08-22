@@ -20,6 +20,8 @@ export let dom = {
     init: function () {
         // This function should run once, when the page is loaded.
     },
+
+
     loadBoards: function () {
         // retrieves boards and makes showBoards called
 
@@ -41,17 +43,11 @@ export let dom = {
 
         for(let board of boards){
 
-            let new_= "";
-            let inProgress = "";
-            let test = "";
-            let done = "";
-
-
-
             dataHandler.getCardsByBoardId(board.id, function (data) {
 
                 let cards = "";
                 console.log(data)
+
 
                 data.forEach(card => {
                     console.log(card.board_id)
@@ -62,31 +58,27 @@ export let dom = {
                     }
                 });
 
+
                 let element = document.createElement('div');
                 element.setAttribute('class','card');
                 element.innerHTML = cards;
 
-                document.querySelector('.column-new').appendChild(element);
-
+                document.querySelector('.column-new'+board.id).appendChild(element);
             });
 
         boardList += `
         <ul class="board-container">
                 
             <section class="board">
-
                 <div class="board-header"><span class="board-title"> ${board.board_title} </span>
-
                     <button class="board-add">Add Card</button>
-
                     <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
                 </div>
                 <div class="board-columns">
                     <div class="board-column">
                         <div class="board-column-title">New</div>
                         
-                            <div class="board-column-content column-new" >${new_}</div>
-
+                            <div class="board-column-content column-new${board.id}" > </div>
                         </div>
                         <div class="board-column">
                             <div class="board-column-title">In Progress</div>
@@ -115,8 +107,6 @@ export let dom = {
 
 
         }
-
-
         this._appendToElement(document.getElementById("board"), boardList);
 
 
