@@ -26,13 +26,15 @@ export let dom = {
     loadBoards: function () {
         // retrieves boards and makes showBoards called
 
-
         dataHandler.getBoards(function(boards){
             dom.clearBoards();
             dom.showBoards(boards);
             dom.toggleButtons();
+            dom.newBoardCreate(boards)
         }
         );
+
+
 
     },
     showBoards: function (boards) {
@@ -132,12 +134,11 @@ export let dom = {
 
     toggleButtons: function() {
     let boards = document.querySelectorAll('.board-toggle');
-    console.log(boards);
     for (let button of boards) {
         button.addEventListener('click', function () {
             let table = document.querySelectorAll(".board-columns");
             for (let right_button of table) {
-                if (right_button.dataset.number == button.dataset.number) {
+                if (right_button.dataset.number === button.dataset.number) {
                     if (right_button.style.display === "none") {
                         right_button.style.display = null;
                     } else {
@@ -151,6 +152,19 @@ export let dom = {
 
     clearBoards: function(){
         document.getElementById("board").textContent="";
+    },
+
+    newBoardCreate: function () {
+        let addNewBoard = document.querySelector("#create-board");
+        addNewBoard.addEventListener("click", function (e) {
+            if (e.detail === 1) {
+                dataHandler.createNewBoard(function(data){
+                    dom.clearBoards();
+                    dom.showBoards(data);
+                })
+            }
+        })
+
     }
 };
 

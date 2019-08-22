@@ -16,11 +16,11 @@ def index():
 
 
 @app.route('/create-board/')
+@json_response
 def create_board():
 
     data_handler.create_board()
-
-    return get_boards()
+    return data_handler.get_boards()
 
 
 @app.route("/get-boards")

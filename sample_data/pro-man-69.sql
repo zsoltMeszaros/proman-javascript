@@ -25,6 +25,7 @@ ALTER TABLE ONLY cards
 
 INSERT INTO boards VALUES (1,'Board 1');
 INSERT INTO boards VALUES (2,'BÓRD 2');
+SELECT pg_catalog.setval('boards_id_seq', 2, true);
 
 INSERT INTO cards VALUES (1,1,'new card 1',0,0);
 INSERT INTO cards VALUES (2,1,'new card 2',0,1);
