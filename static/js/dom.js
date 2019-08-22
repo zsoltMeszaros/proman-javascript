@@ -41,13 +41,12 @@ export let dom = {
 
         for(let board of boards){
 
-            let alma = [];
 
             dataHandler.getCardsByBoardId(board.id, function (data) {
-                alma.push(data)
+                let card_data = data
+                console.log(card_data)
             });
 
-            console.log(alma);
 
 
             boardList += `
