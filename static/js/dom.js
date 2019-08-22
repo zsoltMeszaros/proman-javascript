@@ -43,28 +43,7 @@ export let dom = {
 
         for(let board of boards){
 
-            dataHandler.getCardsByBoardId(board.id, function (data) {
-
-                let cards = "";
-                console.log(data)
-
-
-                data.forEach(card => {
-                    console.log(card.board_id)
-                    if (board.id === card.board_id && card.status === "0") {
-                        let emptyCard = `<div class="card" > ${card.title} </div>`;
-                        cards += emptyCard;
-
-                    }
-                });
-
-
-                let element = document.createElement('div');
-                element.setAttribute('class','card');
-                element.innerHTML = cards;
-
-                document.querySelector('.column-new'+board.id).appendChild(element);
-            });
+        dom.loadCards(board.id);
 
         boardList += `
         <ul class="board-container">
@@ -78,26 +57,24 @@ export let dom = {
                     <div class="board-column">
                         <div class="board-column-title">New</div>
                         
-                            <div class="board-column-content column-new${board.id}" > </div>
+                            <div class="board-column-content column-0${board.id}" > </div>
                         </div>
                         <div class="board-column">
                             <div class="board-column-title">In Progress</div>
-                            <div class="board-column-content column-in-progress">
-                                <div class="card">
-                                </div>
+                            <div class="board-column-content column-1${board.id} ">
+                                
+                                
                             </div>
                         </div>
                         <div class="board-column">
                             <div class="board-column-title">Testing</div>
-                            <div class="board-column-content column-testing">
-                                <div class="card">
-                                </div>
+                            <div class="board-column-content column-2${board.id} ">
                             </div>
                         </div>
                         <div class="board-column">
                             <div class="board-column-title">Done</div>
-                            <div class="board-column-content column-done">
-                                <div class="card">
+                            <div class="board-column-content column-3${board.id} ">
+                                
                                 </div>
                             </div>
                     </div>
@@ -113,14 +90,41 @@ export let dom = {
     },
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
+
+        dataHandler.getCardsByBoardId(boardId, function(cards){
+            dom.showCards(boardId, cards);
+
+        })
     },
-    showCards: function (cards) {
+
+
+    showCards: function (boardId, cards) {
         // shows the cards of a board
         // it adds necessary event listeners also
-    },
-    // here comes more features
+
+                let htmlCardsString = "";
+                console.log(cards);
+                //console.log(card.board_id)
+
+                for (let j=0; j < 4; j++){
+                    for(let card of cards) {
+                        if (card.status === `${j}`) {
+                            let emptyCard = `<div class="card" > ${card.title} </div>`;
+                            htmlCardsString += emptyCard;
+
+                        }
+                    }
+                        let element = document.createElement('div');
+                        element.innerHTML = htmlCardsString;
+                        document.querySelector(`.column-${j}` + boardId).appendChild(element);
+                        htmlCardsString = "";
+                }
+        },
+
 
     clearBoards: function(){
         document.getElementById("board").textContent="";
     }
 };
+
+    // here comes more features
