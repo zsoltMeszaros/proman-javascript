@@ -49,15 +49,25 @@ export let dom = {
 
 
             dataHandler.getCardsByBoardId(board.id, function (data) {
+
+                let iLoveBarkacsolas = document.querySelectorAll("#new-column")
+
+                iLoveBarkacsolas.innerHTML = data;
+
+                console.log(iLoveBarkacsolas);
+
+                let element = document.createElement('div');
+                element.setAttribute('class','card');
+                element.innerHTML = iLoveBarkacsolas;
+
+                document.querySelector('.column-new').innerHTML = element;
+
                 data.forEach(card => {
                     let new2 = "";
                     let emptyCard = `<div class="card" > ${card.title} </div>`;
                     new2 += emptyCard;
                     let element = document.createElement('div')
                     element.innerHTML = new2;
-                    console.log(new2);
-                    // document.getElementById('new').appendChild(new2);
-                    document.getElementsByClassName("column-testing").appendChild(element);
                 })
             });
 
