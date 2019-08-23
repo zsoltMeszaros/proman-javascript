@@ -1,5 +1,5 @@
 // It uses data_handler.js to visualize elements
-import { dataHandler } from "./data_handler.js";
+import {dataHandler} from "./data_handler.js";
 
 export let dom = {
     _appendToElement: function (elementToExtend, textToAppend, prepend = false) {
@@ -18,22 +18,26 @@ export let dom = {
         return elementToExtend.lastChild;
     },
     init: function () {
-        // This function should run once, when the page is loaded.
 
+        // loads the boards to the screen
+        dom.loadBoards();
+
+        // This function should run once, when the page is loaded.
+        dom.newBoardCreate();
     },
 
 
     loadBoards: function () {
         // retrieves boards and makes showBoards called
 
-        dataHandler.getBoards(function(boards){
-            dom.clearBoards();
-            dom.showBoards(boards);
-            dom.toggleButtons();
-            dom.newBoardCreate(boards)
-        }
-        );
+        dataHandler.getBoards(function (boards) {
+                dom.clearBoards();
+                dom.showBoards(boards);
+                dom.toggleButtons();
 
+                dom.newCardCreate()
+            }
+        );
 
 
     },
@@ -44,9 +48,9 @@ export let dom = {
         let boardList = '';
 
 
-        for(let board of boards){
+        for (let board of boards) {
 
-        boardList += `
+            boardList += `
         <ul class="board-container">
             <section class="board">
                 <div class="board-header"><span class="board-title">${board.board_title}</span>
@@ -74,7 +78,7 @@ export let dom = {
             </section>
         </ul>`;
 
-        dom.loadCards(board.id);
+            dom.loadCards(board.id);
         }
         this._appendToElement(document.getElementById("board"), boardList);
 
@@ -83,7 +87,7 @@ export let dom = {
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
 
-        dataHandler.getCardsByBoardId(boardId, function(cards){
+        dataHandler.getCardsByBoardId(boardId, function (cards) {
             dom.showCards(boardId, cards);
 
         })
@@ -94,56 +98,62 @@ export let dom = {
         // shows the cards of a board
         // it adds necessary event listeners also
 
-                let htmlCardsString = "";
+        let htmlCardsString = "";
 
-                for (let j=0; j < 4; j++){
-                    for(let card of cards) {
-                        if (card.status === `${j}`) {
-                            let emptyCard = `<div class="card" > ${card.title} </div>`;
-                            htmlCardsString += emptyCard;
+        for (let j = 0; j < 4; j++) {
+            for (let card of cards) {
+                if (card.status === `${j}`) {
+                    let emptyCard = `<div class="card" > ${card.title} </div>`;
+                    htmlCardsString += emptyCard;
 
-                        }
-                    }
-                        let element = document.createElement('div');
-                        element.innerHTML = htmlCardsString;
-                        document.querySelector(`.column-${j}` + boardId).appendChild(element);
-                        htmlCardsString = "";
-                }
-        },
-
-    toggleButtons: function() {
-    let boards = document.querySelectorAll('.board-toggle');
-    for (let button of boards) {
-        button.addEventListener('click', function () {
-            let table = document.querySelectorAll(".board-columns");
-            for (let right_button of table) {
-                if (right_button.dataset.number === button.dataset.number) {
-                    if (right_button.style.display === "none") {
-                        right_button.style.display = null;
-                    } else {
-                        right_button.style.display = "none";
-                    }
                 }
             }
+            let element = document.createElement('div');
+            element.innerHTML = htmlCardsString;
+            document.querySelector(`.column-${j}` + boardId).appendChild(element);
+            htmlCardsString = "";
         }
-    )}
     },
 
-    clearBoards: function(){
-        document.getElementById("board").textContent="";
+    toggleButtons: function () {
+        let boards = document.querySelectorAll('.board-toggle');
+        for (let button of boards) {
+            button.addEventListener('click', function () {
+                    const content = button.parentElement.parentElement.querySelector('.board-columns');
+                    content.classList.toggle('hidden');
+                }
+            )
+        }
+    },
+
+    clearBoards: function () {
+        document.getElementById("board").textContent = "";
     },
 
     newBoardCreate: function () {
         let addNewBoard = document.querySelector("#create-board");
         addNewBoard.addEventListener("click", function (e) {
             if (e.detail === 1) {
-                dataHandler.createNewBoard(function(data){
+                dataHandler.createNewBoard(function (data) {
                     dom.loadBoards()
                 })
             }
         })
 
+    },
+
+    newCardCreate: function () {
+        let addNewCardButtons = document.querySelectorAll(".board-add");
+        console.log(addNewCardButtons)
+        for (let addNewCardButton of addNewCardButtons) {
+            addNewCardButton.addEventListener("click", () => {
+                const boardId = addNewCardButton.nextElementSibling.dataset.number;
+                dataHandler.createNewCard(boardId, () => {
+                    this.loadBoards();
+                });
+            })
+        }
     }
 };
 
-    // here comes more features
+// here comes more features

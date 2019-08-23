@@ -39,3 +39,5 @@ INSERT INTO cards VALUES (9,1,'new card 1',1,0);
 INSERT INTO cards VALUES (10,1,'new card 1',2,0);
 INSERT INTO cards VALUES (11,1,'new card 1',3,0);
 INSERT INTO cards VALUES (12,1,'new card 1',3,1);
+
+SELECT pg_catalog.setval('cards_id_seq', 12, true);

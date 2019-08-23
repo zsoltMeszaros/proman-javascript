@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from util import json_response
 
 import data_handler
@@ -18,9 +18,17 @@ def index():
 @app.route('/create-board/')
 @json_response
 def create_board():
-
     data_handler.create_board()
     return data_handler.get_boards()
+
+
+@app.route('/create-new-card', methods=['POST'])
+@json_response
+def create_card():
+    board_id = request.get_json()
+    print(board_id)
+    data_handler.create_card(board_id['boardId'])
+    return
 
 
 @app.route("/get-boards")
@@ -35,28 +43,24 @@ def get_boards():
 @app.route("/get-statuses")
 @json_response
 def get_statuses():
-
     return data_handler.get_card_statuses()
 
 
 @app.route("/get-card-status/<int:card_id>")
 @json_response
 def get_card_status(card_id: int):
-
     return data_handler.get_card_status_by_id(card_id)
 
 
 @app.route("/get-card/<int:card_id>")
 @json_response
 def get_card_by_id(card_id: int):
-
     return data_handler.get_card_by_id(card_id)
 
 
 @app.route("/get-board/<int:board_id>")
 @json_response
 def get_board_by_id(board_id: int):
-
     return data_handler.get_board_by_id(board_id)
 
 
