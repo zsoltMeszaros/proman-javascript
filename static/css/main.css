@@ -28,9 +28,6 @@ h1{
     max-width: 920px;
 }
 
-#new-board-div {
-    text-align: center;
-}
 
 button{
     background: #222;
@@ -39,6 +36,10 @@ button{
     font-size: 14px;
     font-family: sans-serif;
     padding: 4px 10px;
+}
+
+#new-board-button {
+    text-align: center;
 }
 
 .board-container{

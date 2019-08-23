@@ -138,10 +138,7 @@ export let dom = {
         addNewBoard.addEventListener("click", function (e) {
             if (e.detail === 1) {
                 dataHandler.createNewBoard(function(data){
-                    dom.clearBoards();
-                    dom.showBoards(data);
-                    dom.toggleButtons();
-                    dom.newBoardCreate(boards)
+                    dom.loadBoards()
                 })
             }
         })
