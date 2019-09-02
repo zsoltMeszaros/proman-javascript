@@ -5,6 +5,7 @@ import psycopg2
 import psycopg2.extras
 import urllib
 
+
 def get_heroku_connection():
     urllib.parse.uses_netloc.append('postgres')
     url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
@@ -16,6 +17,7 @@ def get_heroku_connection():
         port=url.port
     )
     return connection
+
 
 def get_connection_string():
     # setup connection string
@@ -37,7 +39,7 @@ def get_connection_string():
 
 def open_database():
     try:
-        connection_string = get_connection_string()
+        connection_string = get_heroku_connection()  # original: get_connection_string()
         connection = psycopg2.connect(connection_string)
         connection.autocommit = True
     except psycopg2.DatabaseError as exception:
@@ -48,7 +50,7 @@ def open_database():
 
 def connection_handler(function):
     def wrapper(*args, **kwargs):
-        connection = get_heroku_connection()  #original: open_database()
+        connection = open_database()
         # we set the cursor_factory parameter to return with a RealDictCursor cursor (cursor which provide dictionaries)
         dict_cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         ret_value = function(dict_cur, *args, **kwargs)
