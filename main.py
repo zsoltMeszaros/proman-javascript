@@ -37,7 +37,9 @@ def get_boards():
     """
     All the boards
     """
-    return data_handler.get_boards()
+    boards = data_handler.get_boards()
+    print(boards)
+    return boards
 
 
 @app.route("/get-statuses")
