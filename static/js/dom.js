@@ -34,7 +34,7 @@ export let dom = {
                 dom.clearBoards();
                 dom.showBoards(boards);
                 dom.toggleButtons();
-
+                dom.renameBoards();
                 dom.newCardCreate()
             }
         );
@@ -144,7 +144,7 @@ export let dom = {
 
     newCardCreate: function () {
         let addNewCardButtons = document.querySelectorAll(".board-add");
-        console.log(addNewCardButtons)
+        console.log(addNewCardButtons);
         for (let addNewCardButton of addNewCardButtons) {
             addNewCardButton.addEventListener("click", () => {
                 const boardId = addNewCardButton.nextElementSibling.dataset.number;
@@ -152,6 +152,26 @@ export let dom = {
                     this.loadBoards();
                 });
             })
+        }
+    },
+
+    renameBoards: function () {
+        let boardTitles = document.querySelectorAll(".board-title");
+        console.log(boardTitles);
+        for (let title of boardTitles) {
+            title.addEventListener("click", () => {
+                title.innerHTML = `<form class="new-title" method="post"><input type='text' value="${title.innerText}"></form>`
+                title.focus();
+                document.body.addEventListener("keydown", (e) => {
+                    if (e.code === "Enter") {
+                        alert("ezaz");
+                        let newTitleinput = title.querySelector("input")
+                        title.innerHTML = newTitleinput.value
+                    }
+                })
+
+            })
+
         }
     }
 };
