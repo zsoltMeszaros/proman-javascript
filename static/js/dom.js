@@ -62,18 +62,17 @@ export let dom = {
                         <div class="board-column-title">New</div>
                         <div class="board-column-content column-0${board.id}" ></div>
                     </div>
-                    <div class="board-column">
+                    <div class="board-column" data-number="${board.id}">
                         <div class="board-column-title">In Progress</div>
                         <div class="board-column-content column-1${board.id} "></div>
                     </div>
-                    <div class="board-column">
+                    <div class="board-column" data-number="${board.id}">
                         <div class="board-column-title">Testing</div>
                         <div class="board-column-content column-2${board.id} "></div>
                     </div>
-                    <div class="board-column">
+                    <div class="board-column" data-number="${board.id}">
                         <div class="board-column-title">Done</div>
                         <div class="board-column-content column-3${board.id} "></div>
-                    </div>
                 </div>
             </section>
         </ul>`;
@@ -99,8 +98,9 @@ export let dom = {
         // it adds necessary event listeners also
 
         let htmlCardsString = "";
-
+        let cardContainers = [];
         for (let j = 0; j < 4; j++) {
+             htmlCardsString += '<div class="card" ></div>';
             for (let card of cards) {
                 if (card.status === `${j}`) {
                     let emptyCard = `<div class="card" > ${card.title} </div>`;
@@ -109,10 +109,14 @@ export let dom = {
                 }
             }
             let element = document.createElement('div');
+            element.setAttribute('class', `drag-and-drop-${j}`);
+            element.setAttribute('data-status-col', `${j}`);
             element.innerHTML = htmlCardsString;
             document.querySelector(`.column-${j}` + boardId).appendChild(element);
             htmlCardsString = "";
+            cardContainers.push(element)
         }
+        dragula(cardContainers)
     },
 
     toggleButtons: function () {
@@ -144,7 +148,6 @@ export let dom = {
 
     newCardCreate: function () {
         let addNewCardButtons = document.querySelectorAll(".board-add");
-        console.log(addNewCardButtons)
         for (let addNewCardButton of addNewCardButtons) {
             addNewCardButton.addEventListener("click", () => {
                 const boardId = addNewCardButton.nextElementSibling.dataset.number;
