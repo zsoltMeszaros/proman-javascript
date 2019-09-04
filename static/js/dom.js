@@ -165,12 +165,15 @@ export let dom = {
                 document.body.addEventListener('keydown', (e) => {
                     if (e.code === 'Enter') {
                         let newTitleInput = title.querySelector('input');
-                        title.innerHTML = newTitleInput.value
+                        title.innerHTML = newTitleInput.value;
+                        dataHandler._api_post('/rename-board-title', newTitleInput.value, () => {
+
+                        })
                     }
                 });
                 document.querySelector('input').addEventListener('blur', () => {
                     let newTitleInput = title.querySelector('input');
-                        title.innerHTML = newTitleInput.value
+                    title.innerHTML = newTitleInput.value
                 })
             })
 

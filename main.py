@@ -74,6 +74,13 @@ def get_cards_for_board(board_id):
     return data_handler.get_cards_for_board(board_id)
 
 
+@app.route("/rename-board-title", methods=["POST"])
+@json_response
+def rename_board_title():
+    title = request.get_json()
+
+
+
 def main():
     app.run(debug=True)
 
