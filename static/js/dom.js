@@ -160,16 +160,18 @@ export let dom = {
         console.log(boardTitles);
         for (let title of boardTitles) {
             title.addEventListener("click", () => {
-                title.innerHTML = `<form class="new-title" method="post"><input type='text' value="${title.innerText}"></form>`
-                title.focus();
-                document.body.addEventListener("keydown", (e) => {
-                    if (e.code === "Enter") {
-                        alert("ezaz");
-                        let newTitleinput = title.querySelector("input")
-                        title.innerHTML = newTitleinput.value
+                title.innerHTML = `<form class="new-title" method="post"><input type='text' value="${title.innerText}"></form>`;
+                document.querySelector('input').focus();
+                document.body.addEventListener('keydown', (e) => {
+                    if (e.code === 'Enter') {
+                        let newTitleInput = title.querySelector('input');
+                        title.innerHTML = newTitleInput.value
                     }
+                });
+                document.querySelector('input').addEventListener('blur', () => {
+                    let newTitleInput = title.querySelector('input');
+                        title.innerHTML = newTitleInput.value
                 })
-
             })
 
         }
