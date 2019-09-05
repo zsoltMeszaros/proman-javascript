@@ -60,19 +60,19 @@ export let dom = {
                 <div class="board-columns" data-number="${board.id}">
                     <div class="board-column">
                         <div class="board-column-title">New</div>
-                        <div class="board-column-content column-0${board.id}" ></div>
+                        <div class="board-column-content column-0${board.id}" data-default="0"></div>
                     </div>
                     <div class="board-column" data-number="${board.id}">
                         <div class="board-column-title">In Progress</div>
-                        <div class="board-column-content column-1${board.id} "></div>
+                        <div class="board-column-content column-1${board.id}" data-default="1"></div>
                     </div>
                     <div class="board-column" data-number="${board.id}">
                         <div class="board-column-title">Testing</div>
-                        <div class="board-column-content column-2${board.id} "></div>
+                        <div class="board-column-content column-2${board.id}" data-default="2"></div>
                     </div>
                     <div class="board-column" data-number="${board.id}">
                         <div class="board-column-title">Done</div>
-                        <div class="board-column-content column-3${board.id} "></div>
+                        <div class="board-column-content column-3${board.id}" data-default="3"></div>
                 </div>
             </section>
         </ul>`;
@@ -103,7 +103,7 @@ export let dom = {
              htmlCardsString += '<div class="card" ></div>';
             for (let card of cards) {
                 if (card.status === `${j}`) {
-                    let emptyCard = `<div class="card" data-card-id="${card.id}" data-card-board="${card.status}"> ${card.title} </div>`;
+                    let emptyCard = `<div class="card" data-card-id="${card.id}" data-card-status="${card.status}"> ${card.title} </div>`;
                     htmlCardsString += emptyCard;
 
                 }
