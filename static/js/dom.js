@@ -162,7 +162,9 @@ export let dom = {
     },
 
     saveCards: function (card) {
-        console.log(card);
+        let newStatus = card.parentElement.dataset.statuscol;
+        let cardId = card.dataset.cardId;
+
 
     }
 };
