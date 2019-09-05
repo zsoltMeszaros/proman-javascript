@@ -103,7 +103,7 @@ export let dom = {
              htmlCardsString += '<div class="card" ></div>';
             for (let card of cards) {
                 if (card.status === `${j}`) {
-                    let emptyCard = `<div class="card" > ${card.title} </div>`;
+                    let emptyCard = `<div class="card" data-card-id="${card.id}" data-card-board="${card.status}"> ${card.title} </div>`;
                     htmlCardsString += emptyCard;
 
                 }
@@ -117,6 +117,9 @@ export let dom = {
             cardContainers.push(element)
         }
         dragula(cardContainers)
+        .on('drop', function (el) {
+            dom.saveCards(el)
+        })
     },
 
     toggleButtons: function () {
@@ -156,6 +159,11 @@ export let dom = {
                 });
             })
         }
+    },
+
+    saveCards: function (card) {
+        console.log(card);
+
     }
 };
 
