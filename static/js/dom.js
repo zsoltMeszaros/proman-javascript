@@ -34,7 +34,7 @@ export let dom = {
                 dom.clearBoards();
                 dom.showBoards(boards);
                 dom.toggleButtons();
-
+                dom.renameBoards();
                 dom.newCardCreate()
             }
         );
@@ -99,20 +99,29 @@ export let dom = {
         // it adds necessary event listeners also
 
         let htmlCardsString = "";
-
+        let cardContainers = [];
         for (let j = 0; j < 4; j++) {
+            htmlCardsString += '<div class="card" ></div>';
             for (let card of cards) {
                 if (card.status === `${j}`) {
-                    let emptyCard = `<div class="card" > ${card.title} </div>`;
+                    let emptyCard = `<div class="card" data-card-id="${card.id}" data-card-status="${card.status}"> ${card.title} </div>`;
                     htmlCardsString += emptyCard;
 
                 }
             }
             let element = document.createElement('div');
+            element.setAttribute('class', `drag-and-drop-${j}`);
+            element.setAttribute('data-statuscol', `${j}`);
             element.innerHTML = htmlCardsString;
             document.querySelector(`.column-${j}` + boardId).appendChild(element);
             htmlCardsString = "";
+            cardContainers.push(element)
         }
+        dragula(cardContainers)
+            .on('drop', function (el) {
+                dataHandler.saveCards(el)
+
+            })
     },
 
     toggleButtons: function () {
@@ -153,7 +162,33 @@ export let dom = {
                 });
             })
         }
-    }
+    },
+
+    renameBoards: function () {
+        let boardTitles = document.querySelectorAll(".board-title");
+        for (let title of boardTitles) {
+            title.addEventListener("click", () => {
+                title.innerHTML = `<input class="new-title" type='text' value="${title.innerText}">`;
+                document.querySelector('input').focus();
+                document.querySelector('input').addEventListener('keypress', (e) => {
+                    console.log(e.key);
+                    if (e.key === 'Enter') {
+                        let newTitleInput = title.querySelector('input');
+                        title.innertext = newTitleInput.value;
+                        const boardId = title.parentElement.nextElementSibling.dataset.number;
+                        let data = {title: newTitleInput.value, boardId: boardId};
+                        dataHandler._api_post('/rename-board-title', data, () => {
+                        this.loadBoards()
+                        })
+                    }
+                });
+                document.querySelector('input').addEventListener('blur', () => {
+                    let newTitleInput = title.querySelector('input');
+                    title.innertext = newTitleInput.value
+                })
+            })
+
+
 };
 
 // here comes more features

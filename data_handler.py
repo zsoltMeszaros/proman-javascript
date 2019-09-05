@@ -31,7 +31,9 @@ def get_card_status_by_id(cursor, given_id):
 
 @database_common.connection_handler
 def get_boards(cursor):
-    cursor.execute('''SELECT * FROM boards''')
+    cursor.execute('''SELECT * FROM boards
+                    ORDER BY id ASC
+                    ''')
 
     boards = cursor.fetchall()
 
@@ -107,3 +109,22 @@ def create_card(cursor, board_id):
                         ''', {'seq': seq, 'board_id': board_id})
 
     return
+
+
+@database_common.connection_handler
+def rename_title(cursor, board_id, title):
+    cursor.execute('''
+                    UPDATE boards
+                    SET board_title = %(title)s
+                    WHERE id = %(board_id)s
+                    ''', {'board_id': board_id, 'title': title})
+
+    return
+
+@database_common.connection_handler
+def card_status_update(cursor,id,new_status):
+    cursor.execute("""
+                    UPDATE cards
+                    SET status = %(new_status)s
+                    WHERE cards.id = %(id)s
+                    """, { "new_status":new_status,"id":id})
