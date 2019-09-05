@@ -34,7 +34,7 @@ export let dom = {
                 dom.clearBoards();
                 dom.showBoards(boards);
                 dom.toggleButtons();
-
+                dom.renameBoards();
                 dom.newCardCreate()
             }
         );
@@ -60,19 +60,20 @@ export let dom = {
                 <div class="board-columns" data-number="${board.id}">
                     <div class="board-column">
                         <div class="board-column-title">New</div>
-                        <div class="board-column-content column-0${board.id}"></div>
+                        <div class="board-column-content column-0${board.id}" ></div>
                     </div>
-                    <div class="board-column" data-number="${board.id}">
+                    <div class="board-column">
                         <div class="board-column-title">In Progress</div>
-                        <div class="board-column-content column-1${board.id}"></div>
+                        <div class="board-column-content column-1${board.id} "></div>
                     </div>
-                    <div class="board-column" data-number="${board.id}">
+                    <div class="board-column">
                         <div class="board-column-title">Testing</div>
-                        <div class="board-column-content column-2${board.id}"></div>
+                        <div class="board-column-content column-2${board.id} "></div>
                     </div>
-                    <div class="board-column" data-number="${board.id}">
+                    <div class="board-column">
                         <div class="board-column-title">Done</div>
-                        <div class="board-column-content column-3${board.id}"></div>
+                        <div class="board-column-content column-3${board.id} "></div>
+                    </div>
                 </div>
             </section>
         </ul>`;
@@ -152,6 +153,7 @@ export let dom = {
 
     newCardCreate: function () {
         let addNewCardButtons = document.querySelectorAll(".board-add");
+        console.log(addNewCardButtons)
         for (let addNewCardButton of addNewCardButtons) {
             addNewCardButton.addEventListener("click", () => {
                 const boardId = addNewCardButton.nextElementSibling.dataset.number;
@@ -161,6 +163,30 @@ export let dom = {
             })
         }
     },
+
+    renameBoards: function () {
+        let boardTitles = document.querySelectorAll(".board-title");
+        for (let title of boardTitles) {
+            title.addEventListener("click", () => {
+                title.innerHTML = `<input class="new-title" type='text' value="${title.innerText}">`;
+                document.querySelector('input').focus();
+                document.querySelector('input').addEventListener('keypress', (e) => {
+                    console.log(e.key);
+                    if (e.key === 'Enter') {
+                        let newTitleInput = title.querySelector('input');
+                        title.innertext = newTitleInput.value;
+                        const boardId = title.parentElement.nextElementSibling.dataset.number;
+                        let data = {title: newTitleInput.value, boardId: boardId};
+                        dataHandler._api_post('/rename-board-title', data, () => {
+                        this.loadBoards()
+                        })
+                    }
+                });
+                document.querySelector('input').addEventListener('blur', () => {
+                    let newTitleInput = title.querySelector('input');
+                    title.innertext = newTitleInput.value
+                })
+            })
 
 
 };

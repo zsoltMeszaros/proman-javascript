@@ -85,6 +85,14 @@ def save_new_card_status():
     return
 
 
+@app.route("/rename-board-title", methods=["POST"])
+@json_response
+def rename_board_title():
+    title = request.get_json()
+    data_handler.rename_title(title['boardId'], title['title'])
+    return
+
+
 def main():
     app.run(debug=True)
 
