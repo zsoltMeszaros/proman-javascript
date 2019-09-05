@@ -74,6 +74,17 @@ def get_cards_for_board(board_id):
     return data_handler.get_cards_for_board(board_id)
 
 
+@app.route("/save-new-card-status", methods=['POST'])
+@json_response
+def save_new_card_status():
+    data = request.get_json()
+    id = int(data["id"])
+    newStatus = data["newStatus"]
+    print(id,newStatus)
+    data_handler.card_status_update(id,newStatus)
+    return
+
+
 def main():
     app.run(debug=True)
 
