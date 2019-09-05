@@ -144,7 +144,6 @@ export let dom = {
 
     newCardCreate: function () {
         let addNewCardButtons = document.querySelectorAll(".board-add");
-        console.log(addNewCardButtons);
         for (let addNewCardButton of addNewCardButtons) {
             addNewCardButton.addEventListener("click", () => {
                 const boardId = addNewCardButton.nextElementSibling.dataset.number;
@@ -157,23 +156,25 @@ export let dom = {
 
     renameBoards: function () {
         let boardTitles = document.querySelectorAll(".board-title");
-        console.log(boardTitles);
         for (let title of boardTitles) {
             title.addEventListener("click", () => {
-                title.innerHTML = `<form class="new-title" method="post"><input type='text' value="${title.innerText}"></form>`;
+                title.innerHTML = `<input class="new-title" type='text' value="${title.innerText}">`;
                 document.querySelector('input').focus();
-                document.body.addEventListener('keydown', (e) => {
-                    if (e.code === 'Enter') {
+                document.querySelector('input').addEventListener('keypress', (e) => {
+                    console.log(e.key);
+                    if (e.key === 'Enter') {
                         let newTitleInput = title.querySelector('input');
-                        title.innerHTML = newTitleInput.value;
-                        dataHandler._api_post('/rename-board-title', newTitleInput.value, () => {
-
+                        title.innertext = newTitleInput.value;
+                        const boardId = title.parentElement.nextElementSibling.dataset.number;
+                        let data = {title: newTitleInput.value, boardId: boardId};
+                        dataHandler._api_post('/rename-board-title', data, () => {
+                        this.loadBoards()
                         })
                     }
                 });
                 document.querySelector('input').addEventListener('blur', () => {
                     let newTitleInput = title.querySelector('input');
-                    title.innerHTML = newTitleInput.value
+                    title.innertext = newTitleInput.value
                 })
             })
 

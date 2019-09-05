@@ -78,7 +78,8 @@ def get_cards_for_board(board_id):
 @json_response
 def rename_board_title():
     title = request.get_json()
-
+    data_handler.rename_title(title['boardId'], title['title'])
+    return
 
 
 def main():
