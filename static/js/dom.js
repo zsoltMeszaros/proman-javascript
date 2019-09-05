@@ -60,19 +60,19 @@ export let dom = {
                 <div class="board-columns" data-number="${board.id}">
                     <div class="board-column">
                         <div class="board-column-title">New</div>
-                        <div class="board-column-content column-0${board.id}" data-default="0"></div>
+                        <div class="board-column-content column-0${board.id}"></div>
                     </div>
                     <div class="board-column" data-number="${board.id}">
                         <div class="board-column-title">In Progress</div>
-                        <div class="board-column-content column-1${board.id}" data-default="1"></div>
+                        <div class="board-column-content column-1${board.id}"></div>
                     </div>
                     <div class="board-column" data-number="${board.id}">
                         <div class="board-column-title">Testing</div>
-                        <div class="board-column-content column-2${board.id}" data-default="2"></div>
+                        <div class="board-column-content column-2${board.id}"></div>
                     </div>
                     <div class="board-column" data-number="${board.id}">
                         <div class="board-column-title">Done</div>
-                        <div class="board-column-content column-3${board.id}" data-default="3"></div>
+                        <div class="board-column-content column-3${board.id}"></div>
                 </div>
             </section>
         </ul>`;
@@ -110,7 +110,7 @@ export let dom = {
             }
             let element = document.createElement('div');
             element.setAttribute('class', `drag-and-drop-${j}`);
-            element.setAttribute('data-status-col', `${j}`);
+            element.setAttribute('data-statuscol', `${j}`);
             element.innerHTML = htmlCardsString;
             document.querySelector(`.column-${j}` + boardId).appendChild(element);
             htmlCardsString = "";
