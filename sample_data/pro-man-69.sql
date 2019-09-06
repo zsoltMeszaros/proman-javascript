@@ -21,7 +21,8 @@ CREATE TABLE cards (
 
 
 ALTER TABLE ONLY cards
-    ADD CONSTRAINT fk_board_id FOREIGN KEY (board_id) REFERENCES boards(id);
+    ADD CONSTRAINT fk_board_id FOREIGN KEY (board_id) REFERENCES boards(id)
+        ON DELETE CASCADE;
 
 INSERT INTO boards VALUES (1,'Board 1');
 INSERT INTO boards VALUES (2,'BÓRD 2');

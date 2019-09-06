@@ -82,6 +82,14 @@ def rename_board_title():
     return
 
 
+@app.route("/delete-board", methods=['POST'])
+@json_response
+def delete_board():
+    data = request.get_json()
+    data_handler.delete_board(data['boardId'])
+    return
+
+
 def main():
     app.run(debug=True)
 

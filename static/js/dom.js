@@ -35,7 +35,8 @@ export let dom = {
                 dom.showBoards(boards);
                 dom.toggleButtons();
                 dom.renameBoards();
-                dom.newCardCreate()
+                dom.newCardCreate();
+                dom.deleteBoards()
             }
         );
 
@@ -53,9 +54,10 @@ export let dom = {
             boardList += `
         <ul class="board-container">
             <section class="board">
-                <div class="board-header"><span class="board-title">${board.board_title}</span>
+                <div class="board-header" data-number="${board.id}><span class="board-title">${board.board_title}</span>
                     <button class="board-add">Add Card</button>
                     <button class="board-toggle" data-number="${board.id}"><i class="fas fa-chevron-down"></i></button>
+                    <i class="fas fa-trash trash"></i>
                 </div>
                 <div class="board-columns" data-number="${board.id}">
                     <div class="board-column">
@@ -146,7 +148,7 @@ export let dom = {
         let addNewCardButtons = document.querySelectorAll(".board-add");
         for (let addNewCardButton of addNewCardButtons) {
             addNewCardButton.addEventListener("click", () => {
-                const boardId = addNewCardButton.nextElementSibling.dataset.number;
+                const boardId = addNewCardButton.parentElement.nextElementSibling.dataset.number;
                 dataHandler.createNewCard(boardId, () => {
                     this.loadBoards();
                 });
@@ -178,6 +180,19 @@ export let dom = {
                 })
             })
 
+        }
+    },
+    deleteBoards: function () {
+        let buttons = document.querySelectorAll('.trash')
+        for (let button of buttons) {
+            button.addEventListener('click', () => {
+                let boardId = button.parentElement.nextElementSibling.dataset.number;
+                let data = {boardId: boardId};
+                console.log(data)
+                dataHandler._api_post('/delete-board', data, () => {
+                    this.loadBoards()
+                })
+            })
         }
     }
 };
