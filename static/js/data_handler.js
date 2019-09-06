@@ -30,11 +30,9 @@ export let dataHandler = {
             },
         })
             .then(response => response.json())
-            .then(json_response => callback(json_response));
+            .then(json_response => callback && callback(json_response));
     },
 
-    init: function () {
-    },
     getBoards: function (callback) {
         // the boards are retrieved and then the callback function is called with the boards
 
@@ -106,14 +104,12 @@ export let dataHandler = {
 
     },
 
-        saveCards: function (card) {
+    saveCards: function (card) {
         let data = {
             id: card.dataset.cardId,
             newStatus: card.parentElement.dataset.statuscol
-        }
-        this._api_post("/save-new-card-status",data,function () {
-
-        })
+        };
+        this._api_post("/save-new-card-status", data);
     }
 };
 

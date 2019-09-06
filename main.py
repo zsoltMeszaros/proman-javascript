@@ -80,8 +80,7 @@ def save_new_card_status():
     data = request.get_json()
     id = int(data["id"])
     newStatus = data["newStatus"]
-    print(id,newStatus)
-    data_handler.card_status_update(id,newStatus)
+    data_handler.card_status_update(id, newStatus)
     return
 
 

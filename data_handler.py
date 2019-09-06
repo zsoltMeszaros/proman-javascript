@@ -108,10 +108,11 @@ def create_card(cursor, board_id):
 
     return
 
+
 @database_common.connection_handler
-def card_status_update(cursor,id,new_status):
+def card_status_update(cursor, id, new_status):
     cursor.execute("""
                     UPDATE cards
                     SET status = %(new_status)s
                     WHERE cards.id = %(id)s
-                    """, { "new_status":new_status,"id":id})
+                    """, {"new_status": new_status, "id": id})
